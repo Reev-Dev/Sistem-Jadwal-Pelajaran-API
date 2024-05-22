@@ -1,36 +1,36 @@
 module.exports = (sequelize, DataTypes) => {
-    const mapel = sequelize.define('mapel', {
+    const subject = sequelize.define('mapel', {
         id: {
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
-            type: Sequelize.INTEGER
+            type: DataTypes.INTEGER
         },
         mapel: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         guruPengampu: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         kodeGuru: {
-            type: Sequelize.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         createdAt: {
             allowNull: false,
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP')
         },
         updatedAt: {
             allowNull: false,
-            type: Sequelize.DATE,
-            defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-            onUpdate: Sequelize.literal('CURRENT_TIMESTAMP')
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
+            onUpdate: DataTypes.literal('CURRENT_TIMESTAMP')
         }
     }, {
         tableName: 'mapel'
     });
-    return mapel;
+    return subject;
 };
