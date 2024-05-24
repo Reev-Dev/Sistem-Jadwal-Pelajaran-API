@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    const subject = sequelize.define('mapel', {
+    const subject = sequelize.define('subject', {
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -8,7 +8,8 @@ module.exports = (sequelize, DataTypes) => {
         },
         mapel: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         guruPengampu: {
             type: DataTypes.STRING,
@@ -20,14 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         createdAt: {
             allowNull: false,
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP')
+            type: DataTypes.DATE
         },
         updatedAt: {
             allowNull: false,
-            type: DataTypes.DATE,
-            defaultValue: DataTypes.literal('CURRENT_TIMESTAMP'),
-            onUpdate: DataTypes.literal('CURRENT_TIMESTAMP')
+            type: DataTypes.DATE
         }
     }, {
         tableName: 'mapel'

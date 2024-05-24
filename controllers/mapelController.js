@@ -1,7 +1,7 @@
-const { subject } = require('../models');
 const generateToken = require('../config/generateToken');
 const { comparePassword, hashPassword } = require('../config/bcrypt');
 const { errorResponse, successResponse, internalErrorResponse, notFoundResponse } = require('../config/response');
+const { subject } = require('../models');
 
 async function addSubject(req, res) {
     try {
@@ -10,7 +10,7 @@ async function addSubject(req, res) {
         // Check if subject already exists
         const existingSubject = await subject.findOne({ where: { mapel } });
         if (existingSubject) errorResponse(res, 'Subject already exists', 400);
-        
+
         // Hash the code
         const hashedCode = await hashPassword(kodeGuru);
 
@@ -18,19 +18,20 @@ async function addSubject(req, res) {
         const newSubject = await subject.create({
             mapel,
             guruPengampu,
-            kodeGuru: hashedPassword
+            kodeGuru: hashedCode
         });
 
-        const subjectRespone = {
+        const subjectResponse = {
             id: newSubject.id,
             mapel: newSubject.mapel,
             guruPengampu: subject.guruPengampu,
             createdAt: newSubject.createdAt
         };
 
-        successResponse(res, 'Subject created successfully', subjectRespone, 201);
+        successResponse(res, 'Subject created successfully', subjectResponse, 201);
 
     } catch (err) {
+        console.error(err);
         internalErrorResponse(res, err);
     }
 }

@@ -12,7 +12,8 @@ module.exports = {
       },
       mapel: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
       },
       guruPengampu: {
         type: Sequelize.STRING,
