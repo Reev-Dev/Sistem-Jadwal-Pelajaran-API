@@ -27,17 +27,17 @@ module.exports = (sequelize, DataTypes) => {
       createdAt: {
         allowNull: false,
         type: DataTypes.DATE,
-        defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
+        defaultValue: DataTypes.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
         allowNull: false,
         type: DataTypes.DATE,
         defaultValue: DataTypes.literal("CURRENT_TIMESTAMP"),
-        onUpdate: DataTypes.literal("CURRENT_TIMESTAMP"),
+        onUpdate: DataTypes.literal("CURRENT_TIMESTAMP")
       },
     },
     {
-      tableName: "jadwal",
+      tableName: "jadwal"
     }
   );
   return jadwal;

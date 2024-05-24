@@ -1,9 +1,13 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+const { addSubject, loginTeacher, getSubject } = require('../controllers/mapelController');
+const authentication = require('../middleware/authentication');
+
+/* GET mapel listing. */
+router.post('/add', addSubject);
+router.post('/login', loginTeacher);
+router.get('/get', authentication, getSubject);
+
 
 module.exports = router;
