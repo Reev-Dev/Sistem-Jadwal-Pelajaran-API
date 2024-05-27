@@ -42,12 +42,12 @@ async function loginTeacher(req, res) {
         const { guruPengampu, kodeGuru } = req.body;
 
         // Check if teacher is exist
-        const teacher = await subject.findOne({ ehere: { guruPengampu } });
+        const teacher = await subject.findOne({ where: { guruPengampu } });
         if (!teacher) notFoundResponse(res, 'Teacher not found');
 
         // validate code
         const validCode = await comparePassword(kodeGuru, teacher.kodeGuru);
-        if (!validCode) errorResponse(res, 'Invalid code');
+        if (!validCode) errorResponse(res, 'Invalid code', 401);
 
         const teacherResponse = {
             id: teacher.id,
@@ -80,8 +80,26 @@ async function getSubject(req, res) {
     }
 }
 
+async function getAllSubjects(req, res) {
+    try {
+        const subjects = await subject.findAll({
+            attributes: ['id', 'mapel', 'guruPengampu']
+        });
+
+        if (!subjects || subjects.length === 0) {
+            errorResponse(res, 'Subjects not found', 404);
+        }
+
+        successResponse(res, 'Fetched Succesfully', subjects, 200);
+    } catch (err) {
+        console.error('Error fetching subjects: ', err);
+        internalErrorResponse(res, err, 500);
+    }
+}
+
 module.exports = {
     addSubject,
     loginTeacher,
-    getSubject
+    getSubject,
+    getAllSubjects
 };
