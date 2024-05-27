@@ -47,7 +47,7 @@ async function loginTeacher(req, res) {
 
         // validate code
         const validCode = await comparePassword(kodeGuru, teacher.kodeGuru);
-        if (!validCode) errorResponse(res, 'Invalid code', 401);
+        if (!validCode) errorResponse(res, 'Invalid code');
 
         const teacherResponse = {
             id: teacher.id,
@@ -56,33 +56,26 @@ async function loginTeacher(req, res) {
         };
 
         const token = generateToken(teacher);
-        successResponse(res, "Hello Sir/Ma'am", {
+        successResponse(res, 'Hello, Sir/Madam', {
             teacher: teacherResponse,
             token
         }, 200);
     } catch (err) {
-        console.error('Error, are you teacher?', err);
+        console.error('Error logging teacher', err);
         internalErrorResponse(res, err);
     }
 };
 
 async function getSubject(req, res) {
     try {
-        const subjects = await subject.findAll({
-            where: {
-                subjectId: req.user.id
-            },
-            include: [
-                {
-                    model: subject,
-                    as: 'Subjects',
-                    attributes: ['id', 'guruPengampu', 'mapel']
-                }
-            ]
+        const subjects = await subject.findByPk(req.user.id, {
+            attributes: ['id', 'mapel', 'guruPengampu']
         });
+        if (!subjects) errorResponse(res, 'Subjects not found', 404);
 
         successResponse(res, 'Fetched succesfully', subjects, 200);
     } catch (err) {
+        console.error('Error fetching subjects: ', err);
         internalErrorResponse(res, err, 500);
     }
 }
