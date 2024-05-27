@@ -25,7 +25,7 @@ async function addSubject(req, res) {
             const subjectResponse = {
                 id: newSubject.id,
                 mapel: newSubject.mapel,
-                guruPengampu: subject.guruPengampu,
+                guruPengampu: newSubject.guruPengampu,
                 createdAt: newSubject.createdAt
             };
 
