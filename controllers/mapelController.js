@@ -9,27 +9,28 @@ async function addSubject(req, res) {
 
         // Check if subject already exists
         const existingSubject = await subject.findOne({ where: { mapel } });
-        if (existingSubject) errorResponse(res, 'Subject already exists', 400);
+        if (existingSubject) {
+            errorResponse(res, 'Subject already exists', 400);
+        } else {
+            // Hash the code
+            const hashedCode = await hashPassword(kodeGuru);
 
-        // Hash the code
-        const hashedCode = await hashPassword(kodeGuru);
+            // Create new subject
+            const newSubject = await subject.create({
+                mapel,
+                guruPengampu,
+                kodeGuru: hashedCode
+            });
 
-        // Create new subject
-        const newSubject = await subject.create({
-            mapel,
-            guruPengampu,
-            kodeGuru: hashedCode
-        });
+            const subjectResponse = {
+                id: newSubject.id,
+                mapel: newSubject.mapel,
+                guruPengampu: subject.guruPengampu,
+                createdAt: newSubject.createdAt
+            };
 
-        const subjectResponse = {
-            id: newSubject.id,
-            mapel: newSubject.mapel,
-            guruPengampu: subject.guruPengampu,
-            createdAt: newSubject.createdAt
-        };
-
-        successResponse(res, 'Subject created successfully', subjectResponse, 201);
-
+            successResponse(res, 'Subject created successfully', subjectResponse, 201);
+        }
     } catch (err) {
         console.error(err);
         internalErrorResponse(res, err);
