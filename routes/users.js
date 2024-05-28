@@ -9,6 +9,9 @@ router.post('/add', addSubject);
 router.post('/login', loginTeacher);
 router.get('/get', authentication, getSubject);
 router.get('/all', getAllSubjects);
+router.get('/all', authentication, getAllSubjects);
+router.put('/:id/update', authentication, updateSubject);
+
 
 
 module.exports = router;
