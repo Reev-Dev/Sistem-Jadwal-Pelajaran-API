@@ -13,6 +13,7 @@ module.exports = {
       mapel: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       kodeGuru: {
         type: Sequelize.STRING,
