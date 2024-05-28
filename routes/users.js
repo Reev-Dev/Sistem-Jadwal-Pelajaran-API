@@ -12,5 +12,4 @@ router.get('/all', authentication, getAllSubjects);
 router.put('/:id/update', authentication, updateSubject);
 
 
-
 module.exports = router;
