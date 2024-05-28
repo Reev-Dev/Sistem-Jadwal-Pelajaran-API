@@ -76,26 +76,6 @@ async function getSubject(req, res) {
         successResponse(res, 'Fetched succesfully', subjects, 200);
     } catch (err) {
         console.error('Error fetching subjects: ', err);
-<<<<<<< HEAD
-        internalErrorResponse(res, err, 500);
-    }
-}
-
-async function getAllSubjects(req, res) {
-    try {
-        const subjects = await subject.findAll({
-            attributes: ['id', 'mapel', 'guruPengampu']
-        });
-
-        if (!subjects || subjects.length === 0) {
-            errorResponse(res, 'Subjects not found', 404);
-        }
-
-        successResponse(res, 'Fetched Succesfully', subjects, 200);
-    } catch (err) {
-        console.error('Error fetching subjects: ', err);
-=======
->>>>>>> 44c37f8 (Penambahan fungsi updateSubject)
         internalErrorResponse(res, err, 500);
     }
 }
@@ -165,10 +145,6 @@ module.exports = {
     addSubject,
     loginTeacher,
     getSubject,
-<<<<<<< HEAD
-    getAllSubjects
-=======
     getAllSubjects,
     updateSubject
->>>>>>> 44c37f8 (Penambahan fungsi updateSubject)
 };
