@@ -76,6 +76,26 @@ async function getSubject(req, res) {
         successResponse(res, 'Fetched succesfully', subjects, 200);
     } catch (err) {
         console.error('Error fetching subjects: ', err);
+<<<<<<< HEAD
+        internalErrorResponse(res, err, 500);
+    }
+}
+
+async function getAllSubjects(req, res) {
+    try {
+        const subjects = await subject.findAll({
+            attributes: ['id', 'mapel', 'guruPengampu']
+        });
+
+        if (!subjects || subjects.length === 0) {
+            errorResponse(res, 'Subjects not found', 404);
+        }
+
+        successResponse(res, 'Fetched Succesfully', subjects, 200);
+    } catch (err) {
+        console.error('Error fetching subjects: ', err);
+=======
+>>>>>>> 44c37f8 (Penambahan fungsi updateSubject)
         internalErrorResponse(res, err, 500);
     }
 }
@@ -97,9 +117,58 @@ async function getAllSubjects(req, res) {
     }
 }
 
+const updateSubject = async (req, res) => {
+    const { id } = req.params;
+    const userId = req.user.id;
+    const { mapel, guruPengampu, kodeGuru } = req.body;
+  
+    try {
+      const subjects = await subject.findOne({
+        where: {
+          id,
+          userId
+        }
+      });
+  
+      if (!subjects) {
+        errorResponse(res, 'subject not found', 404);
+      }
+      const updatedsubject = await subject.update({
+        mapel, guruPengampu, kodeGuru
+      }, {
+        where: {
+          id,
+          userId
+        }
+      });
+  
+      const subjectReponse = {
+        id: subject.id,
+        mapel: subject.mapel,
+        guruPengampu: subject.guruPengampu,
+        kodeGuru: subject.kodeGuru
+      }
+  
+      if (!updatedsubject) {
+        errorResponse(res, 'subject not updated', 400);
+      } else {
+        successResponse(res, 'subject updated successfully', subjectReponse, 200);
+      }
+    } catch (err) {
+      console.error(err);
+      internalErrorResponse(res, err, 500);
+    }
+  }
+
+
 module.exports = {
     addSubject,
     loginTeacher,
     getSubject,
+<<<<<<< HEAD
     getAllSubjects
+=======
+    getAllSubjects,
+    updateSubject
+>>>>>>> 44c37f8 (Penambahan fungsi updateSubject)
 };
