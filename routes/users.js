@@ -8,7 +8,7 @@ const authentication = require('../middleware/authentication');
 router.post('/add', addSubject);
 router.post('/login', loginTeacher);
 router.get('/get', authentication, getSubject);
-router.get('/all', authentication, getAllSubjects);
+router.get('/all', getAllSubjects);
 
 
 module.exports = router;

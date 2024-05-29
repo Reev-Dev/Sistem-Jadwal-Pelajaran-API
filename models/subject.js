@@ -30,5 +30,10 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         tableName: 'mapel'
     });
+    subject.associate = (models) => {
+        subject.hasMany(models.schedules, {
+            foreignKey: 'subjectId'
+        });
+    }
     return subject;
 };

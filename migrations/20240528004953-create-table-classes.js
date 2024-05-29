@@ -2,26 +2,17 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    return queryInterface.createTable('mapel', {
+  async up(queryInterface, Sequelize) {
+    return queryInterface.createTable("classes", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
-      mapel: {
-        type: Sequelize.STRING,
+      className: {
         allowNull: false,
-        unique: true
-      },
-      guruPengampu: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      kodeGuru: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -34,10 +25,10 @@ module.exports = {
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         onUpdate: Sequelize.literal('CURRENT_TIMESTAMP')
       }
-    })
+    });
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('mapel');
+    await queryInterface.dropTable('classes');
   }
 };
