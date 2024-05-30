@@ -86,40 +86,6 @@ async function getScheduleByClassAndDay(req, res) {
 
 async function getAllSchedules(req, res) {
     try {
-        // const allSchedule = await schedules.findAll({
-        //     include: [
-        //         {
-        //             model: classes,
-        //             attributes: ['id', 'className']
-        //         },
-        //         {
-        //             model: subject,
-        //             attributes: ['id', 'mapel', 'guruPengampu']
-        //         }
-        //     ]
-        // });
-        // if (!allSchedule || allSchedule.length === 0) {
-        //     return notFoundResponse(res, 'No schedules found')
-        // }
-        // // Kelompokkan jadwal berdasarkan kelas dan hari
-        // const groupedSchedules = allSchedule.reduce((acc, allSchedule) => {
-        //     const classNames = allSchedule.classes.className;
-        //     const day = allSchedule.day;
-
-        //     if (!acc[classNames]) {
-        //         acc[classNames] = {};
-        //     }
-        //     if (!acc[classNames][day]) {
-        //         acc[classNames][day] = [];
-        //     }
-        //     acc[classNames][day].push({
-        //         time: allSchedule.time,
-        //         subject: allSchedule.subject
-        //     });
-
-        //     return acc;
-        // }, {});
-        // return successResponse(res, 'Schedules fetched succesfully', groupedSchedules, 201);
         const classAll = await classes.findAll({
             include: {
                 model: schedules,
