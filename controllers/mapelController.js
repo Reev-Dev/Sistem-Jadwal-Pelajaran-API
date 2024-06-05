@@ -96,10 +96,89 @@ async function getAllSubjects(req, res) {
         internalErrorResponse(res, err, 500);
     }
 }
+const updateSubject = async (req, res) => {
+    const { id } = req.params;
+    const { mapel, guruPengampu, kodeGuru } = req.body;
+
+    try {
+        const existingSubject = await subject.findOne({ where: { id } });
+
+        if (!existingSubject) {
+            return errorResponse(res, "Mata pelajaran tidak ditemukan", 404);
+        }
+
+        const updateFields = {};
+
+        if (mapel) {
+            updateFields.mapel = mapel;
+        }
+        if (guruPengampu) {
+            updateFields.guruPengampu = guruPengampu;
+        }
+        if (kodeGuru) {
+            // Hash kode guru baru jika ada
+            const hashedCode = await hashPassword(kodeGuru);
+            updateFields.kodeGuru = hashedCode;
+        }
+
+        if (Object.keys(updateFields).length > 0) {
+            const updatedSubject = await subject.update(updateFields, { where: { id } });
+
+            if (updatedSubject) {
+                const subjectResponse = {
+                    id,
+                    mapel: mapel || existingSubject.mapel,
+                    guruPengampu: guruPengampu || existingSubject.guruPengampu,
+                    updatedAt: updatedSubject.updatedAt,
+                };
+                return successResponse(res, "Mata pelajaran berhasil diperbarui", subjectResponse, 200);
+            } else {
+                return errorResponse(res, "Gagal memperbarui mata pelajaran", 400);
+            }
+        } else {
+            return successResponse(res, "Tidak ada perubahan yang perlu dilakukan", {}, 200);
+        }
+    } catch (err) {
+        console.error(err);
+        return internalErrorResponse(res, err, 500);
+    }
+};
+
+
+
+const deleteSubject = async (req, res) => {
+    const { id } = req.params
+
+    try {
+        const subjects = await subject.findOne({
+            where: {
+                id
+            },
+        });
+        if (!subjects) {
+            errorResponse(res, "Subject not found", 404);
+        }
+
+        const deletedSubject = await subject.destroy({
+            where: {
+                id
+            },
+        });
+
+        if (!deletedSubject) {
+            errorResponse(res, "Subject not deleted", 400);
+        } else {
+            successResponse(res, "Subject deleted successfully", subjects, 200);
+        }
+    } catch (err) {
+        internalErrorResponse(res, err, 500);
+    }
+};
 
 module.exports = {
     addSubject,
-    loginTeacher,
     getSubject,
-    getAllSubjects
+    getAllSubjects,
+    updateSubject,
+    deleteSubject,
 };
