@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE
         }
     }, {
-        tableName: 'mapel'
+        tableName: 'subject'
     });
     subject.associate = (models) => {
         subject.hasMany(models.schedules, {

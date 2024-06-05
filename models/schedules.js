@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
                 allowNull: false,
                 type: DataTypes.INTEGER,
                 references: {
-                    model: 'mapel',
+                    model: 'subject',
                     key: 'id'
                 }
             },

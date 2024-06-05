@@ -1,13 +1,13 @@
 // const generateToken = require('../config/generateToken');
 // const { comparePassword, hashPassword } = require('../config/bcrypt');
 const { errorResponse, successResponse, internalErrorResponse, notFoundResponse } = require('../config/response');
-const { subject, classes, schedules } = require('../models');
+const { subject, classes, schedules, admin } = require('../models');
 
 async function addClass(req, res) {
     try {
         const { className } = req.body;
 
-        if (!className) {
+        if (!{ className }) {
             return errorResponse(res, 'Class name is required', 400);
         }
         const existingClass = await classes.findOne({ where: { className } });
@@ -105,7 +105,7 @@ async function getAllSchedules(req, res) {
         classAll.forEach(cls => {
             let classSchedule = {};
             cls.schedules.forEach(schedules => {
-                if(!classSchedule[schedules.day]) {
+                if (!classSchedule[schedules.day]) {
                     classSchedule[schedules.day] = [];
                 }
                 classSchedule[schedules.day].push({

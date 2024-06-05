@@ -32,7 +32,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'mapel',
+          model: 'subject',
           key: 'id'
         }, onUpdate: 'CASCADE',
         onDelete: 'CASCADE'

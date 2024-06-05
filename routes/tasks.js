@@ -6,7 +6,7 @@ const authentication = require('../middleware/authentication');
 
 /* GET schedule listing. */
 router.post('/add/class', authentication, addClass);
-router.post('/add/schedule', addSchedule);
+router.post('/add/schedule',authentication, addSchedule);
 router.get('/get/:classId/:day', getScheduleByClassAndDay);
 router.get('/get/all', getAllSchedules)
 
