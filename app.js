@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const tasksRouter = require('./routes/tasks');
+const adminRouter = require('./routes/admin');
 
 const app = express();
 
@@ -20,5 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', usersRouter);
+app.use('/schedule', tasksRouter);
+app.use('/admin', adminRouter);
 
 module.exports = app;

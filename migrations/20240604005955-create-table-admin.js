@@ -2,35 +2,40 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    return queryInterface.createTable('subject', {
+  async up(queryInterface, Sequelize) {
+    return queryInterface.createTable('admin', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      mapel: {
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      email: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        validate: {
+          isEmail: true,
+          notEmpty: true
+        }
       },
-      guruPengampu: {
+      password: {
         type: Sequelize.STRING,
-        allowNull: false
-      },
-      kodeGuru: {
-        type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+
       },
       createdAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
       },
       updatedAt: {
-        allowNull: false,
         type: Sequelize.DATE,
+        allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
         onUpdate: Sequelize.literal('CURRENT_TIMESTAMP')
       }
@@ -38,6 +43,6 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('subject');
+    await queryInterface.dropTable('admin');
   }
 };

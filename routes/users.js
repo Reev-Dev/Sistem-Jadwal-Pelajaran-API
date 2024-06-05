@@ -5,10 +5,10 @@ const { addSubject, loginTeacher, getSubject, getAllSubjects, updateSubject, del
 const authentication = require('../middleware/authentication');
 
 /* GET mapel listing. */
-router.post('/add', addSubject);
+router.post('/add', authentication, addSubject);
 router.post('/login', loginTeacher);
 router.get('/get', authentication, getSubject);
-router.get('/all', authentication, getAllSubjects);
+router.get('/all', getAllSubjects);
 router.put('/:id/update', authentication, updateSubject);
 router.delete('/:id/delete',authentication,deleteSubject);
 
