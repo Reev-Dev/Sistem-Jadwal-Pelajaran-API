@@ -6,7 +6,7 @@ const authentication = require('../middleware/authentication');
 
 /* GET mapel listing. */
 router.post('/add', authentication, addSubject);
-router.get('/get', getSubject);
+router.post('/me', getSubject);
 router.get('/all', authentication, getAllSubjects);
 router.put('/:id/update', authentication, updateSubject);
 router.delete('/:id/delete',authentication,deleteSubject);
